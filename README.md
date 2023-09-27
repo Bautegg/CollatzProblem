@@ -5,7 +5,7 @@ My approach to anlyzing Collatz Problem, using Python.
 
 File **collatz_data_20kk_v2-gz.parquet** - dataset used for this analyze.
 
-File **collatz_problem_v1.py** - is used to generate dataset, you can change number of generated row by variable **last_number**.
+File **collatz_problem_v1.py** - is used to generate dataset, you can change number of generated rows by variable **last_number**.
 
 File **collatz_analyze.py** contains 4 functions:
  - load_parquet_data - loads dataset from .parquet file
