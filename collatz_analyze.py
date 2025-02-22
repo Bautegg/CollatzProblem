@@ -67,6 +67,6 @@ def draw_histogram(path):
 
 
 if __name__ == '__main__':
-    DATA_PATH = "collatz_data_20kk_v2-gz.parquet"
+    DATA_PATH = "collatz_v4_100kk-gz.parquet"
     print(f' ** Draw plot: {draw_plot(DATA_PATH)}')
     print(f' ** Draw histogram: {draw_histogram(DATA_PATH)}')

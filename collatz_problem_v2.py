@@ -1,5 +1,6 @@
 import pandas as pd
 
+# TO DO: check if using GPU for calculation will be faster
 
 def collatz_for(last_number):
     """
@@ -24,11 +25,11 @@ def collatz_for(last_number):
 def create_frame():
     df = pd.DataFrame(collatz_for(last_number), columns=['Number_of_steps'])
     print(df)
-    df.to_parquet('collatz_test_v2_10k-gz.parquet', index=True, compression='gzip')
+    df.to_parquet('collatz_v4_100kk-gz.parquet', index=True, compression='gzip')
 
 
 if __name__ == '__main__':
-    last_number = 10000000
+    last_number = 100000000
 
     # print(f'Number of steps: {collatz_for(last_number)}')
     print(f'df is: \n {create_frame()}')
