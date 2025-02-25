@@ -1,4 +1,4 @@
-# CollatzProblem
+# CollatzProblem WIP
  
 My approach to anlyzing Collatz Problem, using Python. 
 
