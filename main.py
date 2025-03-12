@@ -1,6 +1,12 @@
-import pandas as pd
 import concurrent.futures
 import multiprocessing
+import os
+import matplotlib.pyplot as plt
+import pandas as pd
+from collatz_analyze import draw_plot, draw_histogram
+
+
+# TODO import collaltz_analyze to main.py DONE:), add CLI (click) steering. -d --> draw graphs only -g --> generate new file only -gn --> generate new file and provide last number in CLI
 
 def collatz_steps(n):
     """Calculate the number of steps to reach 1 in the Collatz sequence for a given n number."""
@@ -30,19 +36,30 @@ def compute_collatz_parallel(last_number, num_workers=None):
     with multiprocessing.Pool(processes=num_workers) as pool:
         steps = pool.map(collatz_steps, numbers)  # Map function across processes
 
-    # Store results in a DataFrame
     df = pd.DataFrame({"Steps": steps}, index=range(1, last_number + 1))
     return df
 
 if __name__ == "__main__":
-    last_number = 5000000
-    LOG_CYCLE = 10000000
+    last_number = 500000
+    LOG_CYCLE = 10000000 # Define how often script progress is printed
 
     num_workers = multiprocessing.cpu_count()  # Use all available CPU cores
-
     print(f"Using {num_workers} CPU cores for computation...")
-    
     df = compute_collatz_parallel(last_number, num_workers)
+    print(df)
+
     
-    print(df)  # Display DataFrame
-    df.to_parquet(f'collatz_data_{last_number/1000000}kk_v4_brotli.parquet', index=True, engine='pyarrow', compression='brotli')
+    folder_name = 'artifacts'
+    file_name = f'collatz_data_{last_number/1000000}kk_brotli.parquet'
+    
+    
+    os.makedirs(folder_name, exist_ok=True)
+    file_path = os.path.join(folder_name, file_name)
+
+    # save df to parquet file
+    df.to_parquet(file_path, index=True, engine='pyarrow', compression='brotli')
+
+    # execution of collatz_analyze.py    
+    draw_plot(file_path) 
+    draw_histogram(file_path)
+    plt.show()
