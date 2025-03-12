@@ -9,7 +9,7 @@ from collatz_analyze import draw_plot, draw_histogram
 def collatz_steps(n):
     """Calculate the number of steps to reach 1 in the Collatz sequence for a given n number."""
     steps = 0
-    if (n % LOG_CYCLE) == 0:
+    if (n % log_cycle) == 0:
         print(n)
     while n != 1:
         if n % 2 == 0:
@@ -38,8 +38,8 @@ def compute_collatz_parallel(last_number, num_workers=None):
     return df
 
 if __name__ == "__main__":
-    last_number = 500000
-    LOG_CYCLE = 10000000 # Define how often script progress is printed
+    last_number = 500000 # last number included into result file
+    log_cycle = 100000 # how often script progress is printed
 
     num_workers = multiprocessing.cpu_count()  # Use all available CPU cores
     print(f"Using {num_workers} CPU cores for computation...")
