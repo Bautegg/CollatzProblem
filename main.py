@@ -6,8 +6,6 @@ import pandas as pd
 from collatz_analyze import draw_plot, draw_histogram
 
 
-# TODO import collaltz_analyze to main.py DONE:), add CLI (click) steering. -d --> draw graphs only -g --> generate new file only -gn --> generate new file and provide last number in CLI
-
 def collatz_steps(n):
     """Calculate the number of steps to reach 1 in the Collatz sequence for a given n number."""
     steps = 0
