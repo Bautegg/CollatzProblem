@@ -19,14 +19,12 @@ def collatz_steps(n):
         steps += 1
     return steps
 
-def compute_collatz_parallel(last_number, num_workers=None):
+def compute_collatz_parallel(last_number, num_workers):
     """
     Compute Collatz steps using multiprocessing and store results in a Pandas DataFrame.
     :param last_number: Number of natural numbers to compute.
     :param num_workers: Number of processes to use (default: CPU count).
     """
-    if num_workers is None:
-        num_workers = multiprocessing.cpu_count()  # Use all available CPU cores
     
     numbers = list(range(1, last_number + 1))
 
@@ -38,11 +36,16 @@ def compute_collatz_parallel(last_number, num_workers=None):
     return df
 
 if __name__ == "__main__":
+    num_workers = None # put number of cores or None to use all available cores
     last_number = 500000 # last number included into result file
     log_cycle = 100000 # how often script progress is printed
 
-    num_workers = multiprocessing.cpu_count()  # Use all available CPU cores
-    print(f"Using {num_workers} CPU cores for computation...")
+    if f'{num_workers}'.isdecimal():
+        print(f"Using {num_workers} CPU cores for computation...")   
+    elif num_workers is None:
+        num_workers = multiprocessing.cpu_count()  # Use all available CPU cores
+        print(f"Using all {num_workers} CPU cores for computation...") 
+    
     df = compute_collatz_parallel(last_number, num_workers)
     print(df)
 
